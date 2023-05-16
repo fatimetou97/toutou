@@ -9,21 +9,28 @@ class AuthServices {
       "email": email,
       "motPs": motPs,
     };
+    print("object");
+
     var body = json.encode(data);
-    var url = Uri.parse(baseURL + 'auth/login');
+    print(body);
+    print(baseURL);
+
+    var url = Uri.parse('${baseURL}auth/login');
+
     http.Response response = await http.post(
       url,
       headers: headers,
-      body: body,
+      body: data,
     );
+
     print('response');
     print(response.body);
     return json.decode(response.body);
   }
 
-  static Future<List<dynamic>> getPlanningsByAgent(String id) async {
-    final response = await http.get(Uri.parse(baseURL +
-        "plannings/$id")); // Utilisez l'identifiant de l'agent dans l'URL
+  static Future<List<dynamic>> getPlanningsByAgent(id) async {
+    final response = await http.get(Uri.parse("${baseURL}plannings/$id"),
+        headers: headers); // Utilisez l'identifiant de l'agent dans l'URL
     print(json.decode(response.body));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

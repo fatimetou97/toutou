@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'Login_Page.dart';
@@ -6,6 +7,7 @@ import 'lang/intro_screens/intro_page_1.dart';
 import 'lang/intro_screens/intro_page_2.dart';
 import 'lang/intro_screens/intro_page_3.dart';
 import 'lang/intro_screens/intro_page_4.dart';
+import 'main.dart';
 
 class OnBoadingScreen extends StatefulWidget {
   const OnBoadingScreen({Key? key}) : super(key: key);
@@ -16,6 +18,21 @@ class OnBoadingScreen extends StatefulWidget {
 class _OnBoadingScreenState extends State<OnBoadingScreen> {
   PageController _controller = PageController();
   bool onLastPage = false;
+  String? token;
+  getToken() async {
+    //
+    print("tokenn $token");
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    token = sharedPreferences.getString("token");
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getToken();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,19 +62,26 @@ class _OnBoadingScreenState extends State<OnBoadingScreen> {
                       //hiye lemt3al9a skip ile done
                       _controller.jumpToPage(3);
                     },
-                    child: Text('SKIP')),
+                    child: const Text('SKIP')),
                 SmoothPageIndicator(controller: _controller, count: 4),
                 onLastPage
                     ? GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return SignInPage1();
-                              },
-                            ),
-                          );
+                          if (token == null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return SignInPage1();
+                                },
+                              ),
+                            );
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Home()));
+                          }
                         },
                         child: Text('Done'),
                       )

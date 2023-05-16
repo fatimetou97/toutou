@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0-339.0.dev <4.0.0'
+  sdk: ">=2.17.6 <3.0.0"
   
 
 # Dependencies specify other packages that your package needs in order to work.
@@ -43,7 +43,7 @@ dependencies:
   google_fonts: ^4.0.3
   introduction_screen: ^3.1.7
   smooth_page_indicator: ^1.0.1
-  intl: ^0.18.0
+  intl: 
   localization: ^2.1.0
   get:
   # provider: ^6.0.5
@@ -54,6 +54,7 @@ dependencies:
   animated_splash_screen: ^1.3.0
   rflutter_alert: ^2.0.4
   shared_preferences: ^2.1.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

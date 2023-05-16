@@ -17,7 +17,7 @@ class IntroPage1 extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(200),
                 bottomRight: Radius.circular(200))),
-        bottom: const PreferredSize(
+        bottom: PreferredSize(
             preferredSize: Size.fromHeight(170),
             child: Column(
               children: [

@@ -24,10 +24,21 @@ class _SignInPage1State extends State<SignInPage1> {
   bool msgerror = false;
   //chargement loding
   bool chargement = false;
-  SetUserId(String id) async {
+  SetUserId(int id) async {
     //
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString('id', id);
+    sharedPreferences.setInt('id', id);
+  }
+
+  SetUserToken(String token) async {
+    //
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString('token', token);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -216,8 +227,8 @@ class _SignInPage1State extends State<SignInPage1> {
                                           //message de ereur si mot passe incorect ou passeword
                                           msgerror = false;
                                         });
-                                        SetUserId(
-                                            value['agents']['id'].toString());
+                                        SetUserId(value['agents']['id']);
+                                        SetUserToken(value['token']);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(

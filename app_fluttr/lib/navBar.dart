@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'EditProfile.dart';
+import 'Login_Page.dart';
 import 'ProfilePage1.dart';
 import 'planning.dart';
 
 class SideBarScreen extends StatelessWidget {
   const SideBarScreen({super.key});
+  clearToken() async {
+    //
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
+  }
 
   final List drawerMenuListname = const [
     {
@@ -96,35 +103,49 @@ class SideBarScreen extends StatelessWidget {
               ),
               ...drawerMenuListname.map((sideMenuData) {
                 return ListTile(
-                  leading: sideMenuData['leading'],
-                  title: Text(
-                    sideMenuData['title'],
-                  ),
-                  trailing: sideMenuData['trailing'],
-                  onTap: () {
-                    // Navigator.pop(context);
+                    leading: sideMenuData['leading'],
+                    title: Text(
+                      sideMenuData['title'],
+                    ),
+                    trailing: sideMenuData['trailing'],
+                    onTap: () {
+                      // Navigator.pop(context);
 
-                    if (sideMenuData['action_id'] == 1) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const EditProfile(),
-                        ),
-                      );
-                    } else if (sideMenuData['action_id'] == 4) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const ProfilePage1(),
-                        ),
-                      );
-                    } else if (sideMenuData['action_id'] == 2) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => PlanningScreen(),
-                        ),
-                      );
-                    }
-                  },
-                );
+                      if (sideMenuData['action_id'] == 1) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const EditProfile(),
+                          ),
+                        );
+                      } else if (sideMenuData['action_id'] == 4) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ProfilePage1(),
+                          ),
+                        );
+                      } else if (sideMenuData['action_id'] == 2) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => PlanningScreen(),
+                          ),
+                        );
+                      } else if (sideMenuData['action_id'] == 6) {
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) => PlanningScreen(),
+                        //   ),
+                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return SignInPage1();
+                            },
+                          ),
+                        );
+                        clearToken();
+                      }
+                    });
               }).toList(),
             ],
           ),
